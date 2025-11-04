@@ -90,7 +90,7 @@ function Signin() {
 
           <div className="mt-6 text-center">
             <p className="text-platinum/60 text-sm">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/register" className="text-champagne hover:text-champagne-dark transition-colors font-medium">
                 Sign up
               </Link>
