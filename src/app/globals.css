@@ -2,26 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --obsidian: 15 15 20;
+    --platinum: 245 245 250;
+    --champagne: 212 175 55;
+    --champagne-dark: 184 134 11;
+    --gold: 255 215 0;
+  }
+
+  * {
+    @apply border-platinum/10;
+  }
+
+  body {
+    @apply bg-obsidian text-platinum antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+  .luxury-container {
+    @apply container mx-auto px-6 lg:px-12;
+  }
+
+  .luxury-section {
+    @apply py-24 lg:py-32;
+  }
+
+  .luxury-card {
+    @apply bg-platinum/5 backdrop-blur-sm border border-platinum/10 rounded-lg;
+    @apply hover:border-champagne/30 transition-all duration-300;
+  }
+
+  .luxury-divider {
+    @apply h-px bg-gradient-to-r from-transparent via-platinum/20 to-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-champagne via-gold to-champagne bg-clip-text text-transparent;
+  }
+
+  .shadow-gold {
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+  }
+
+  .shadow-gold-lg {
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+  }
+}
+
+@layer utilities {
+  .bg-obsidian {
+    background-color: rgb(var(--obsidian));
+  }
+
+  .text-platinum {
+    color: rgb(var(--platinum));
+  }
+
+  .text-champagne {
+    color: rgb(var(--champagne));
+  }
+
+  .bg-champagne {
+    background-color: rgb(var(--champagne));
+  }
+
+  .bg-champagne-dark {
+    background-color: rgb(var(--champagne-dark));
+  }
+
+  .border-champagne {
+    border-color: rgb(var(--champagne));
+  }
 }

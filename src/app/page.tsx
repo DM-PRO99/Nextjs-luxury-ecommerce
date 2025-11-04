@@ -1,10 +1,5 @@
-function HomePage() {
-  // const { data: session, status } = useSession({
-  //   required: true,
-  // });
-  // console.log(session, status);
+import { redirect } from 'next/navigation';
 
-  return <div>HomePage</div>;
+export default function HomePage() {
+  redirect('/store');
 }
-
-export default HomePage;
