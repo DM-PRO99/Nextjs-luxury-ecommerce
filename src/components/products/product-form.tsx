@@ -16,6 +16,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 import styles from "./product-form.module.scss";
 import {
@@ -539,10 +540,12 @@ export function ProductForm() {
               )}
               {mainPreview && (
                 <Box mt={2}>
-                  <img
+                  <Image
                     src={mainPreview}
                     alt="main preview"
-                    className="rounded-xl border border-platinum/20"
+                    width={320}
+                    height={320}
+                    className="rounded-xl border border-platinum/20 object-cover"
                   />
                 </Box>
               )}
@@ -583,11 +586,13 @@ export function ProductForm() {
               {galleryPreviews.length > 0 && (
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   {galleryPreviews.map((preview) => (
-                    <img
+                    <Image
                       key={preview}
                       src={preview}
                       alt="gallery preview"
-                      className="rounded-lg border border-platinum/10"
+                      width={180}
+                      height={180}
+                      className="rounded-lg border border-platinum/10 object-cover"
                     />
                   ))}
                 </div>

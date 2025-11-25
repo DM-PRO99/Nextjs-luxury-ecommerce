@@ -1,6 +1,4 @@
 'use client';
-
-import { useMemo } from 'react';
 import Image from 'next/image';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { toast } from 'react-toastify';
@@ -13,7 +11,7 @@ const paypalClientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? 'test';
 
 export default function CheckoutPage() {
   const { items, getTotalPrice, clearCart } = useCart();
-  const total = useMemo(() => getTotalPrice(), [getTotalPrice, items]);
+  const total = getTotalPrice();
 
   return (
     <div className="bg-obsidian min-h-screen pt-32 pb-20">
