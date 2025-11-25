@@ -51,6 +51,7 @@ export default function CheckoutPage() {
                     purchase_units: [
                       {
                         amount: {
+                          currency_code: 'USD',
                           value: Math.max(total, 1).toFixed(2),
                         },
                       },
