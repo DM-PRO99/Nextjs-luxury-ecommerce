@@ -66,23 +66,13 @@ export const productPayloadSchema = productBaseSchema.shape({
 });
 
 export const productFormSchema = productBaseSchema.shape({
-  mainImageFile: yup
-    .mixed<FileList>()
-    .test("required", "Selecciona una imagen principal", (value) => {
-      return value instanceof FileList ? value.length > 0 : !!value;
-    })
-    .nullable()
-    .required("La imagen principal es obligatoria"),
-  galleryImageFiles: yup
-    .mixed<FileList>()
-    .test("maxFiles", "Máximo 4 imágenes adicionales", (value) => {
-      if (!value) return true;
-      return value instanceof FileList ? value.length <= 4 : true;
-    })
-    .nullable()
-    .optional(),
+  mainImageFile: yup.mixed().nullable().optional(),
+  galleryImageFiles: yup.mixed().nullable().optional(),
 });
 
 export type ProductPayload = yup.InferType<typeof productPayloadSchema>;
-export type ProductFormValues = yup.InferType<typeof productFormSchema>;
+export type ProductFormValues = yup.InferType<typeof productFormSchema> & {
+  mainImageFile?: FileList | null;
+  galleryImageFiles?: FileList | null;
+};
 

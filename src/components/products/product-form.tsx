@@ -144,15 +144,27 @@ export function ProductForm() {
     try {
       setIsSubmitting(true);
       const { mainImageFile, galleryImageFiles, ...rest } = values;
-      const mainFile = mainImageFile?.item(0);
+      
+      // Manual validation for file inputs
+      if (!mainImageFile || !(mainImageFile instanceof FileList) || mainImageFile.length === 0) {
+        toast.error("Selecciona una imagen principal");
+        return;
+      }
 
+      const mainFile = mainImageFile.item(0);
       if (!mainFile) {
         toast.error("Selecciona una imagen principal");
         return;
       }
 
+      // Validate gallery images if provided
+      if (galleryImageFiles && galleryImageFiles instanceof FileList && galleryImageFiles.length > 4) {
+        toast.error("Máximo 4 imágenes adicionales");
+        return;
+      }
+
       const mainImage = await fileToBase64(mainFile);
-      const galleryImages = galleryImageFiles
+      const galleryImages = galleryImageFiles && galleryImageFiles instanceof FileList
         ? await Promise.all(
             Array.from(galleryImageFiles).map((file) => fileToBase64(file))
           )
