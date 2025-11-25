@@ -2,6 +2,7 @@ import Providers from "./Providers";
 import "./globals.css";
 import { Playfair_Display, Inter } from 'next/font/google';
 import { ensureCronJobs } from "@/libs/cron";
+import { AppHeader } from "@/components/app/app-header";
 
 ensureCronJobs();
 
@@ -29,9 +30,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="font-sans">
+      <body className="font-sans bg-obsidian text-platinum">
         <Providers>
-          {children}
+          <AppHeader />
+          <main>{children}</main>
         </Providers>
       </body>
     </html>
