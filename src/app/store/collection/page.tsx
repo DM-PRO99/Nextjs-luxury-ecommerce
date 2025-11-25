@@ -2,8 +2,6 @@ import { headers } from "next/headers";
 
 import { ProductCard } from "@/components/luxury/product-card";
 import { Product } from "@/types/products";
-import { staggerContainer } from "@/libs/motion";
-import { motion } from "framer-motion";
 
 const buildBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
@@ -39,16 +37,11 @@ export default async function CollectionPage() {
           {products.length} Exceptional Timepieces
         </p>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product: Product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );
