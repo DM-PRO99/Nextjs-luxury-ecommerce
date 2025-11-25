@@ -4,12 +4,15 @@ import axios, { AxiosError } from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
+import "@/libs/i18n/config";
 
 function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -53,7 +56,9 @@ function Signup() {
         </div>
 
         <div className="luxury-card p-8">
-          <h2 className="text-2xl font-serif font-bold mb-6 text-center">Create Account</h2>
+          <h2 className="text-2xl font-serif font-bold mb-6 text-center">
+            {t("auth.signUpTitle")}
+          </h2>
           
           {error && (
             <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-3 rounded-lg mb-4 text-sm">
@@ -64,7 +69,7 @@ function Signup() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-platinum/80 mb-2">
-                Full Name
+                {t("auth.fullName")}
               </label>
               <input
                 type="text"
@@ -79,7 +84,7 @@ function Signup() {
 
             <div>
               <label className="block text-sm font-medium text-platinum/80 mb-2">
-                Email
+                {t("auth.email")}
               </label>
               <input
                 type="email"
@@ -92,7 +97,7 @@ function Signup() {
 
             <div>
               <label className="block text-sm font-medium text-platinum/80 mb-2">
-                Password
+                {t("auth.password")}
               </label>
               <input
                 type="password"
@@ -111,7 +116,7 @@ function Signup() {
               size="lg"
               disabled={loading}
             >
-              {loading ? "Creating account..." : "Create Account"}
+              {loading ? "..." : t("auth.signUpTitle")}
             </Button>
           </form>
 

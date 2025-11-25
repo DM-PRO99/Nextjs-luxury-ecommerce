@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { User, Mail, ShoppingBag } from "lucide-react";
+import OrderEmailButton from "@/components/sendemail";
 
 function ProfileSkeleton() {
   return (
@@ -124,9 +125,15 @@ export default function ProfilePage() {
             <p className="text-platinum/60 text-sm">
               Your order history will appear here once you make your first purchase.
             </p>
+            <div className="mt-4">
+              <OrderEmailButton email={user?.email ?? undefined} name={user?.name ?? undefined} />
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+            <Link href="/dashboard/products/new">
+              <Button size="lg">Crear producto</Button>
+            </Link>
             <Button
               onClick={() => signOut({ callbackUrl: "/store" })}
               variant="outline"

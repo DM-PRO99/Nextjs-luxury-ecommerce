@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     const { fullname, email, password } = await request.json();
 
-    if (password < 6)
+    if (!password || password.length < 6)
       return NextResponse.json(
         { message: "Password must be at least 6 characters" },
         { status: 400 }
@@ -32,8 +32,9 @@ export async function POST(request: Request) {
 
     const user = new User({
       fullname,
-      email,
+      email: email.toLowerCase(),
       password: hashedPassword,
+      provider: "credentials",
     });
 
     const savedUser = await user.save();

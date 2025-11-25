@@ -1,6 +1,9 @@
 import Providers from "./Providers";
 import "./globals.css";
 import { Playfair_Display, Inter } from 'next/font/google';
+import { ensureCronJobs } from "@/libs/cron";
+
+ensureCronJobs();
 
 const playfair = Playfair_Display({
   subsets: ['latin'],

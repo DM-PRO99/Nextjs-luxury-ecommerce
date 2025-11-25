@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 import { Product } from '@/types/products';
 import { formatPrice, calculateDiscount } from '@/libs/utils';
 import { fadeUp } from '@/libs/motion';
@@ -19,15 +20,20 @@ export function ProductCard({ product }: ProductCardProps) {
     ? calculateDiscount(product.originalPrice, product.price)
     : 0;
 
+  const handleAddToCart = () => {
+    addItem(product);
+    toast.success(`${product.name} agregado al carrito`);
+  };
+
   return (
     <motion.div
       variants={fadeUp}
       className="group relative"
     >
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/store/product/${product.id}`}>
         <div className="relative aspect-square bg-platinum/5 rounded-lg overflow-hidden mb-4">
           <Image
-            src={product.images.main}
+            src={product.images.main.url}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -49,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <button
             onClick={(e) => {
               e.preventDefault();
-              addItem(product);
+              handleAddToCart();
             }}
             className="absolute bottom-4 left-4 right-4 bg-champagne text-obsidian py-3 rounded-lg font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-2 hover:bg-champagne-dark"
           >
@@ -61,7 +67,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <div className="space-y-2">
         <p className="text-xs text-champagne font-medium">{product.brand}</p>
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/store/product/${product.id}`}>
           <h3 className="font-serif font-semibold text-lg hover:text-champagne transition-colors">
             {product.name}
           </h3>

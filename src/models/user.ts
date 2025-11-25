@@ -10,6 +10,8 @@ const UserSchema = new Schema(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Email is invalid",
       ],
+      lowercase: true,
+      trim: true,
     },
     password: {
       type: String,
@@ -20,7 +22,21 @@ const UserSchema = new Schema(
       type: String,
       required: [true, "fullname is required"],
       minLength: [3, "fullname must be at least 3 characters"],
-      maxLength: [20, "fullname must be at most 20 characters"],
+      maxLength: [50, "fullname must be at most 50 characters"],
+      trim: true,
+    },
+    image: {
+      type: String,
+    },
+    provider: {
+      type: String,
+      enum: ["credentials", "google"],
+      default: "credentials",
+    },
+    role: {
+      type: String,
+      enum: ["customer", "admin"],
+      default: "customer",
     },
   },
   {

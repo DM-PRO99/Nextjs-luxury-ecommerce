@@ -1,11 +1,34 @@
-'use client';
+import { headers } from "next/headers";
 
-import { mockProducts } from '@/libs/mock-data';
-import { ProductCard } from '@/components/luxury/product-card';
-import { motion } from 'framer-motion';
-import { staggerContainer } from '@/libs/motion';
+import { ProductCard } from "@/components/luxury/product-card";
+import { Product } from "@/types/products";
+import { staggerContainer } from "@/libs/motion";
+import { motion } from "framer-motion";
 
-export default function CollectionPage() {
+const buildBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
+  if (process.env.NEXTAUTH_URL) return process.env.NEXTAUTH_URL;
+  const host = headers().get("host");
+  return host ? `http://${host}` : "";
+};
+
+async function fetchAllProducts(): Promise<Product[]> {
+  const baseUrl = buildBaseUrl();
+  const endpoint = baseUrl
+    ? `${baseUrl}/api/products?limit=50`
+    : `/api/products?limit=50`;
+
+  const res = await fetch(endpoint, { cache: "no-store" });
+  if (!res.ok) {
+    return [];
+  }
+  const payload = await res.json();
+  return payload.data ?? [];
+}
+
+export default async function CollectionPage() {
+  const products = await fetchAllProducts();
+
   return (
     <div className="bg-obsidian min-h-screen pt-32 pb-20">
       <div className="luxury-container">
@@ -13,7 +36,7 @@ export default function CollectionPage() {
           Our <span className="text-gradient-gold">Collection</span>
         </h1>
         <p className="text-platinum/60 text-lg mb-16">
-          {mockProducts.length} Exceptional Timepieces
+          {products.length} Exceptional Timepieces
         </p>
 
         <motion.div
@@ -22,7 +45,7 @@ export default function CollectionPage() {
           variants={staggerContainer}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {mockProducts.map((product) => (
+          {products.map((product: Product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </motion.div>
