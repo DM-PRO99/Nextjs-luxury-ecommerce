@@ -59,12 +59,12 @@ export default function CheckoutPage() {
                     ],
                   });
                 }}
-                onApprove={(_, actions) =>
-                  actions?.order?.capture().then(() => {
+                onApprove={(_, actions) => {
+                  return (actions?.order?.capture() ?? Promise.resolve()).then(() => {
                     toast.success('Pago completado con PayPal');
                     clearCart();
-                  })
-                }
+                  });
+                }}
                 onError={(error) => {
                   console.error(error);
                   toast.error('No pudimos procesar el pago');
