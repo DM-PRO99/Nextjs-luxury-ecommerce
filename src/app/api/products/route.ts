@@ -98,7 +98,7 @@ export async function POST(request: Request) {
 
     const mainImage = await uploadImage(payload.mainImage);
     const galleryUploads = await Promise.all(
-      (payload.galleryImages || []).map((image) => uploadImage(image))
+      (payload.galleryImages || []).filter((image): image is string => !!image).map((image) => uploadImage(image))
     );
 
     const product = await Product.create({
