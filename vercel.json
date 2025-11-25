@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/auth/(.*)", "destination": "/api/auth/..." },
+    { "source": "/api/trpc/(.*)", "destination": "/api/trpc/..." },
+    { "source": "/(.*)", "destination": "/$1" }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_VERCEL_URL": "$VERCEL_URL"
+    }
+  },
+  "routes": [
+    {
+      "src": "^/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "^/dashboard/(.*)",
+      "dest": "/dashboard/$1"
+    },
+    {
+      "src": "^/store/(.*)",
+      "dest": "/store/$1"
+    },
+    {
+      "src": "^/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
