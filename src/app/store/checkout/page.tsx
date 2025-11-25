@@ -48,6 +48,7 @@ export default function CheckoutPage() {
                 style={{ layout: 'vertical', color: 'gold' }}
                 createOrder={(_, actions) => {
                   return actions.order.create({
+                    intent: 'CAPTURE',
                     purchase_units: [
                       {
                         amount: {
