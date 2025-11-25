@@ -67,17 +67,19 @@ export const productPayloadSchema = productBaseSchema.shape({
 
 export const productFormSchema = productBaseSchema.shape({
   mainImageFile: yup
-    .mixed<FileList | undefined>()
+    .mixed<FileList>()
     .test("required", "Selecciona una imagen principal", (value) => {
       return value instanceof FileList ? value.length > 0 : !!value;
     })
-    .required(),
+    .nullable()
+    .required("La imagen principal es obligatoria"),
   galleryImageFiles: yup
-    .mixed<FileList | undefined>()
+    .mixed<FileList>()
     .test("maxFiles", "Máximo 4 imágenes adicionales", (value) => {
       if (!value) return true;
       return value instanceof FileList ? value.length <= 4 : true;
     })
+    .nullable()
     .optional(),
 });
 
