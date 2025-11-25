@@ -72,8 +72,8 @@ const defaultValues: ProductFormValues = {
   isNew: false,
   isFeatured: false,
   tags: [],
-  mainImageFile: undefined,
-  galleryImageFiles: undefined,
+  mainImageFile: null as any,
+  galleryImageFiles: null as any,
 };
 
 const fileToBase64 = (file: File) =>
