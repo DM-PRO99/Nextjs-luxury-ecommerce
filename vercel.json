@@ -18,23 +18,5 @@
     "env": {
       "NEXT_PUBLIC_VERCEL_URL": "$VERCEL_URL"
     }
-  },
-  "routes": [
-    {
-      "src": "^/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "^/dashboard/(.*)",
-      "dest": "/dashboard/$1"
-    },
-    {
-      "src": "^/store/(.*)",
-      "dest": "/store/$1"
-    },
-    {
-      "src": "^/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  }
 }
