@@ -21,7 +21,6 @@ import styles from "./product-form.module.scss";
 import {
   PRODUCT_CATEGORIES,
   ProductFormValues,
-  productFormSchema,
 } from "@/libs/products/schema";
 
 const textFieldStyles = {
@@ -50,9 +49,9 @@ const fileInputClasses =
 const defaultValues: ProductFormValues = {
   name: "",
   brand: "",
-  collection: "",
+  collection: undefined,
   description: "",
-  shortDescription: "",
+  shortDescription: undefined,
   price: 0,
   originalPrice: undefined,
   category: PRODUCT_CATEGORIES[0],
@@ -71,8 +70,8 @@ const defaultValues: ProductFormValues = {
   isNew: false,
   isFeatured: false,
   tags: [],
-  mainImageFile: null as any,
-  galleryImageFiles: null as any,
+  mainImageFile: null,
+  galleryImageFiles: null,
 };
 
 const fileToBase64 = (file: File) =>
@@ -93,8 +92,8 @@ export function ProductForm() {
     formState: { errors },
     watch,
   } = useForm<ProductFormValues>({
-    resolver: yupResolver(productFormSchema),
     defaultValues,
+    mode: 'onChange',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [featureInput, setFeatureInput] = useState("");
