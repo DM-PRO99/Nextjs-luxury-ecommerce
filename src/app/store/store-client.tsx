@@ -222,12 +222,12 @@ export function StoreClient({
                   placeholder={t("filters.searchPlaceholder")}
                   value={searchInput}
                   onChange={(event) => setSearchInput(event.target.value)}
-                  className="w-full bg-platinum/10 border border-platinum/10 rounded-2xl py-3 pl-12 pr-4 text-platinum focus:border-champagne transition-colors"
+                  className="w-full bg-obsidian/80 border border-platinum/30 rounded-2xl py-3 pl-12 pr-4 text-platinum focus:border-champagne transition-colors backdrop-blur-sm"
                 />
               </div>
               <select
                 name="category"
-                className="bg-platinum/10 border border-platinum/10 rounded-2xl px-4 py-3 text-platinum focus:border-champagne transition-colors"
+                className="bg-obsidian/80 border border-platinum/30 rounded-2xl px-4 py-3 text-platinum focus:border-champagne transition-colors backdrop-blur-sm"
                 value={filters.category}
                 onChange={(event) =>
                   applyFilters({ category: event.target.value as FilterState["category"] })
@@ -240,7 +240,7 @@ export function StoreClient({
                 ))}
               </select>
               <select
-                className="bg-platinum/10 border border-platinum/10 rounded-2xl px-4 py-3 text-platinum focus:border-champagne transition-colors"
+                className="bg-obsidian/80 border border-platinum/30 rounded-2xl px-4 py-3 text-platinum focus:border-champagne transition-colors backdrop-blur-sm"
                 value={filters.sort ?? "createdAt"}
                 onChange={(event) =>
                   applyFilters({ sort: event.target.value as FilterState["sort"] })

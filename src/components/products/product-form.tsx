@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import styles from "./product-form.module.scss";
 import {
@@ -83,6 +84,7 @@ const fileToBase64 = (file: File) =>
   });
 
 export function ProductForm() {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -188,6 +190,18 @@ export function ProductForm() {
       reset(defaultValues);
       setMainPreview(null);
       setGalleryPreviews([]);
+      
+      // Redirect to view the created product
+      if (payload.data?._id) {
+        setTimeout(() => {
+          router.push(`/store/product/${payload.data._id}`);
+        }, 1500);
+      } else {
+        // Fallback to dashboard if no ID returned
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1500);
+      }
     } catch (error) {
       console.error(error);
       toast.error(
@@ -612,29 +626,52 @@ export function ProductForm() {
         </div>
       </div>
 
-      <MuiButton
-        type="submit"
-        variant="contained"
-        size="large"
-        sx={{
-          mt: 4,
-          backgroundColor: "#d1a054",
-          color: "#0a0f1e",
-          paddingY: "0.9rem",
-          borderRadius: "14px",
-          fontWeight: 600,
-          "&:hover": {
-            backgroundColor: "#f1c27d",
-          },
-        }}
-        disabled={!canSubmit}
-      >
-        {isSubmitting ? (
-          <CircularProgress size={24} sx={{ color: "#0a0f1e" }} />
-        ) : (
-          "Guardar producto"
-        )}
-      </MuiButton>
+      <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
+        <MuiButton
+          type="submit"
+          variant="contained"
+          size="large"
+          sx={{
+            backgroundColor: "#d1a054",
+            color: "#0a0f1e",
+            paddingY: "0.9rem",
+            borderRadius: "14px",
+            fontWeight: 600,
+            flex: 1,
+            "&:hover": {
+              backgroundColor: "#f1c27d",
+            },
+          }}
+          disabled={!canSubmit}
+        >
+          {isSubmitting ? (
+            <CircularProgress size={24} sx={{ color: "#0a0f1e" }} />
+          ) : (
+            "Guardar producto"
+          )}
+        </MuiButton>
+        
+        <MuiButton
+          variant="outlined"
+          size="large"
+          onClick={() => router.push("/dashboard")}
+          sx={{
+            borderColor: "rgba(255,255,255,0.3)",
+            color: "#f5f5f5",
+            paddingY: "0.9rem",
+            borderRadius: "14px",
+            fontWeight: 600,
+            flex: 0.3,
+            "&:hover": {
+              borderColor: "#d1a054",
+              backgroundColor: "rgba(209, 160, 84, 0.1)",
+            },
+          }}
+          disabled={isSubmitting}
+        >
+          Cancelar
+        </MuiButton>
+      </Stack>
     </form>
   );
 }
