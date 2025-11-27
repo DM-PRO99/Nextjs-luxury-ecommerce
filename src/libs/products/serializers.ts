@@ -1,4 +1,5 @@
 export const serializeProduct = (product: any) => ({
+  _id: product._id?.toString(),
   id: product._id?.toString(),
   name: product.name,
   brand: product.brand,

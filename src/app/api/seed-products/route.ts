@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/libs/mongodb";
-import Product from "@/libs/models/Product";
+import Product from "@/models/product";
 
 const sampleProducts = [
   {
@@ -258,10 +258,10 @@ export async function POST(request: Request) {
     
     // Insert new products
     const result = await Product.insertMany(sampleProducts);
-    console.log(`✅ Successfully inserted ${result.insertedCount} products`);
+    console.log(`✅ Successfully inserted ${result.length} products`);
     
     // Show summary
-    const categories = {};
+    const categories: Record<string, number> = {};
     sampleProducts.forEach(p => {
       categories[p.category] = (categories[p.category] || 0) + 1;
     });
@@ -272,7 +272,7 @@ export async function POST(request: Request) {
       success: true,
       message: "Products seeded successfully",
       data: {
-        totalProducts: result.insertedCount,
+        totalProducts: result.length,
         categories,
         priceRange: {
           min: Math.min(...prices),

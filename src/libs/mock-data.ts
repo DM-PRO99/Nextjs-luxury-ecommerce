@@ -2,6 +2,7 @@ import { Product, Collection, Review } from "@/types/products";
 
 export const mockProducts: Product[] = [
   {
+    _id: "1",
     id: "1",
     name: "Perpetual Chronograph",
     brand: "CHRONOS",
@@ -59,6 +60,7 @@ export const mockProducts: Product[] = [
     tags: ["luxury", "chronograph", "dress", "automatic"]
   },
   {
+    _id: "2",
     id: "2",
     name: "Diver Professional",
     brand: "AQUATICA",
@@ -108,6 +110,7 @@ export const mockProducts: Product[] = [
     tags: ["dive", "professional", "automatic", "swiss"]
   },
   {
+    _id: "3",
     id: "3",
     name: "Aviator GMT",
     brand: "SKYMASTER",
@@ -147,6 +150,7 @@ export const mockProducts: Product[] = [
     tags: ["pilot", "gmt", "automatic", "titanium"]
   },
   {
+    _id: "4",
     id: "4",
     name: "Moonphase Elegance",
     brand: "CHRONOS",
@@ -193,6 +197,7 @@ export const mockProducts: Product[] = [
     tags: ["moonphase", "dress", "complication", "luxury"]
   },
   {
+    _id: "5",
     id: "5",
     name: "Sport Chronometer",
     brand: "VELOCE",
@@ -238,6 +243,7 @@ export const mockProducts: Product[] = [
     tags: ["chronograph", "racing", "sport", "carbon"]
   },
   {
+    _id: "6",
     id: "6",
     name: "Deep Sea Explorer",
     brand: "AQUATICA",
@@ -282,6 +288,7 @@ export const mockProducts: Product[] = [
     tags: ["dive", "titanium", "professional", "deep-sea"]
   },
   {
+    _id: "7",
     id: "7",
     name: "Classic Dress Watch",
     brand: "ELEGANTE",
@@ -326,6 +333,7 @@ export const mockProducts: Product[] = [
     tags: ["dress", "manual", "classic", "elegant"]
   },
   {
+    _id: "8",
     id: "8",
     name: "Pilot's Chronograph",
     brand: "SKYMASTER",
@@ -371,6 +379,7 @@ export const mockProducts: Product[] = [
     tags: ["pilot", "chronograph", "military", "flyback"]
   },
   {
+    _id: "9",
     id: "9",
     name: "Skeleton Masterpiece",
     brand: "CHRONOS",
