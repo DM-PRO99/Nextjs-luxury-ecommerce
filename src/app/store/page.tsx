@@ -2,6 +2,7 @@ import { StoreClient, FilterState } from "./store-client";
 import { Product } from "@/types/products";
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 type Pagination = {
   page: number;
@@ -15,20 +16,12 @@ type ProductsResponse = {
   pagination: Pagination;
 };
 
-const buildBaseUrl = () => {
-  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  if (process.env.NEXTAUTH_URL) return process.env.NEXTAUTH_URL;
-  if (process.env.NEXT_PUBLIC_VERCEL_URL) return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
-  return ""; // En producción, Vercel manejará las URLs relativas
-};
-
 const sanitizeParam = (value?: string | string[]) => {
   if (!value) return undefined;
   return Array.isArray(value) ? value[0] : value;
 };
 
 async function fetchProducts(searchParams: Record<string, string | string[] | undefined>) {
-  const baseUrl = buildBaseUrl();
   const params = new URLSearchParams();
 
   const allowedParams = ["page", "category", "search", "sort", "minPrice", "maxPrice"];
@@ -39,12 +32,15 @@ async function fetchProducts(searchParams: Record<string, string | string[] | un
     }
   });
 
-  const endpoint = baseUrl
-    ? `${baseUrl}/api/products?${params.toString()}`
-    : `/api/products?${params.toString()}`;
+  const endpoint = `/api/products?${params.toString()}`;
 
   const response = await fetch(endpoint, {
     cache: "no-store",
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }
   });
 
   if (!response.ok) {

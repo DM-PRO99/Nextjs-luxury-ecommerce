@@ -70,7 +70,7 @@ export const productPayloadSchema = yup.object({
   isNew: yup.boolean().required('New status is required'),
   isFeatured: yup.boolean().required('Featured status is required'),
   tags: yup.array().of(yup.string()).required('Tags are required'),
-  mainImage: yup.string().url('Main image must be a valid URL').required('Main image is required'),
-  galleryImages: yup.array().of(yup.string().url('Gallery images must be valid URLs')).optional(),
+  mainImage: yup.string().required('Main image is required'),
+  galleryImages: yup.array().of(yup.string()).optional(),
 });
 

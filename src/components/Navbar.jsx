@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth/options";
 
 async function Navbar() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   return (
     <nav className="bg-zinc-900 p-4">
