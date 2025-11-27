@@ -32,15 +32,12 @@ async function fetchProducts(searchParams: Record<string, string | string[] | un
     }
   });
 
-  const endpoint = `/api/products?${params.toString()}`;
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://nextjs-luxury-ecommerce.vercel.app' : 'http://localhost:3000';
+  const endpoint = params.toString() !== '' ? `${baseUrl}/api/products?${params.toString()}` : `${baseUrl}/api/products`;
 
   const response = await fetch(endpoint, {
     cache: "no-store",
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    }
+    next: { revalidate: 0 }
   });
 
   if (!response.ok) {

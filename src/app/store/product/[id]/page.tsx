@@ -8,10 +8,11 @@ import { ProductDetail } from "./product-detail";
 export default async function ProductPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   await connectDB();
-  const product = await ProductModel.findById(params.id);
+  const { id } = await params;
+  const product = await ProductModel.findById(id);
 
   if (!product) {
     notFound();

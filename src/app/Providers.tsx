@@ -7,11 +7,12 @@ import "@/libs/i18n/config";
 
 interface Props {
   children: React.ReactNode;
+  session?: any;
 }
 
-export default function Providers({ children }: Props) {
+export default function Providers({ children, session }: Props) {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       {children}
       <ToastContainer
         position="top-right"

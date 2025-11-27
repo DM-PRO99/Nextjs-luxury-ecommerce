@@ -118,9 +118,9 @@ export default function ProductsPage() {
               >
                 {/* Product Image */}
                 <div className="relative aspect-square bg-platinum/5">
-                  {product.mainImage ? (
+                  {product.images?.main?.url ? (
                     <Image
-                      src={product.mainImage}
+                      src={product.images.main.url}
                       alt={product.name}
                       fill
                       className="object-cover"

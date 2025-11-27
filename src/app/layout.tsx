@@ -3,6 +3,8 @@ import "./globals.css";
 import { Playfair_Display, Inter } from 'next/font/google';
 import { ensureCronJobs } from "@/libs/cron";
 import { AppHeader } from "@/components/app/app-header";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth/options";
 
 ensureCronJobs();
 
@@ -23,15 +25,17 @@ export const metadata = {
   description: "Discover our curated collection of luxury Swiss timepieces, where heritage meets innovation",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="font-sans bg-obsidian text-platinum">
-        <Providers>
+        <Providers session={session}>
           <AppHeader />
           <main>{children}</main>
         </Providers>

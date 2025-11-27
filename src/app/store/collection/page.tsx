@@ -7,7 +7,7 @@ const buildBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
   if (process.env.NEXTAUTH_URL) return process.env.NEXTAUTH_URL;
   if (process.env.NEXT_PUBLIC_VERCEL_URL) return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
-  return ""; // En producción, Vercel manejará las URLs relativas
+  return "";     
 };
 
 async function fetchAllProducts(): Promise<Product[]> {

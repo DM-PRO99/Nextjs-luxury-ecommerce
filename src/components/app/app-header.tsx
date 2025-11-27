@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { useSession } from "next-auth/react";
 
 export function AppHeader() {
+  const { data: session } = useSession();
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-obsidian/90 border-b border-platinum/10">
       <div className="luxury-container">
@@ -27,16 +30,18 @@ export function AppHeader() {
               <LanguageSwitcher />
             </div>
             
-            <div className="hidden md:block">
-              <Link href="/dashboard/products/new">
-                <Button 
-                  variant="outline" 
-                  className="border-platinum/20 text-platinum/80 hover:bg-champagne/10 hover:text-champagne hover:border-champagne/30 transition-colors"
-                >
-                  Nuevo producto
-                </Button>
-              </Link>
-            </div>
+            {session && (
+              <div className="hidden md:block">
+                <Link href="/dashboard/products/new">
+                  <Button 
+                    variant="outline" 
+                    className="border-platinum/20 text-platinum/80 hover:bg-champagne/10 hover:text-champagne hover:border-champagne/30 transition-colors"
+                  >
+                    Nuevo producto
+                  </Button>
+                </Link>
+              </div>
+            )}
             
             <div className="flex items-center sm:hidden">
               <LanguageSwitcher />
