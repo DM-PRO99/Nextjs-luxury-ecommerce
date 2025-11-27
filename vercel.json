@@ -7,7 +7,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/auth/(.*)", "destination": "/api/auth/..." },
+    { "source": "/api/auth/(.*)", "destination": "/api/auth/[...nextauth]" },
     { "source": "/api/trpc/(.*)", "destination": "/api/trpc/..." },
     { "source": "/(.*)", "destination": "/$1" }
   ],
