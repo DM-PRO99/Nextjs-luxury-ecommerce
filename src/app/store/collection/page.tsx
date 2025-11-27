@@ -1,13 +1,13 @@
-import { headers } from "next/headers";
-
 import { ProductCard } from "@/components/luxury/product-card";
 import { Product } from "@/types/products";
+
+export const dynamic = 'force-dynamic';
 
 const buildBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
   if (process.env.NEXTAUTH_URL) return process.env.NEXTAUTH_URL;
-  const host = headers().get("host");
-  return host ? `http://${host}` : "";
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  return ""; // En producción, Vercel manejará las URLs relativas
 };
 
 async function fetchAllProducts(): Promise<Product[]> {

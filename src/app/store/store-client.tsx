@@ -70,7 +70,7 @@ export function StoreClient({
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [searchInput]);
+  }, [searchInput, filters.search, applyFilters]);
 
   const applyFilters = useCallback((partial: Partial<FilterState>) => {
     const nextFilters: FilterState = {
