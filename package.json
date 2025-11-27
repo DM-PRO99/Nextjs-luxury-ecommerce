@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "seed:products": "node scripts/seed-products.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.4",
@@ -28,11 +29,13 @@
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^2.8.0",
     "clsx": "^2.0.0",
+    "dotenv": "^17.2.3",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "framer-motion": "^10.16.4",
     "i18next": "^25.6.3",
     "lucide-react": "^0.294.0",
+    "mongodb": "^7.0.0",
     "mongoose": "^7.2.3",
     "next": "13.4.5",
     "next-auth": "^4.22.1",
