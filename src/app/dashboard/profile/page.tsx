@@ -72,6 +72,7 @@ export default function ProfilePage() {
                   alt={user?.name || "User avatar"}
                   fill
                   className="rounded-full object-cover ring-2 ring-champagne/20"
+                  sizes="96px"
                 />
               ) : (
                 <div className="h-full w-full rounded-full bg-gradient-to-br from-champagne/20 to-champagne/5 grid place-content-center text-2xl font-serif font-semibold text-champagne">

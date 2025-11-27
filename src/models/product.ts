@@ -29,7 +29,7 @@ const ProductSchema = new Schema(
       required: true,
       trim: true,
     },
-    collection: {
+    collectionName: {
       type: String,
       trim: true,
     },
@@ -85,7 +85,7 @@ const ProductSchema = new Schema(
       type: Number,
       default: 0,
     },
-    isNew: {
+    isNewProduct: {
       type: Boolean,
       default: false,
     },
@@ -116,6 +116,7 @@ const ProductSchema = new Schema(
   },
   {
     timestamps: true,
+    suppressReservedKeysWarning: true,
   }
 );
 

@@ -50,6 +50,7 @@ export function CartDrawer() {
                       alt={item.product.name}
                       fill
                       className="object-cover"
+                      sizes="96px"
                     />
                   </div>
 

@@ -1,187 +1,187 @@
 # Luxury Timepieces E-commerce
 
-E-commerce de relojes de lujo construido con Next.js 13, NextAuth, MongoDB y Tailwind CSS.
+Luxury watch e-commerce built with Next.js 13, NextAuth, MongoDB, and Tailwind CSS.
 
-## 🚀 Características
+## 🚀 Features
 
-- ✅ **Autenticación completa** con NextAuth (Credentials Provider)
-- ✅ **Base de datos MongoDB** con Mongoose
-- ✅ **Diseño de lujo** con tema oscuro y animaciones
-- ✅ **Carrito de compras** funcional con Zustand
-- ✅ **Componentes UI modernos** con Tailwind CSS
-- ✅ **Animaciones suaves** con Framer Motion
-- ✅ **Iconos** con Lucide React
-- ✅ **Tipado completo** con TypeScript
+- ✅ **Complete authentication** with NextAuth (Credentials Provider)
+- ✅ **MongoDB database** with Mongoose
+- ✅ **Luxury design** with dark theme and animations
+- ✅ **Functional shopping cart** with Zustand
+- ✅ **Modern UI components** with Tailwind CSS
+- ✅ **Smooth animations** with Framer Motion
+- ✅ **Icons** with Lucide React
+- ✅ **Full TypeScript** typing
 
-## 📋 Requisitos Previos
+## 📋 Prerequisites
 
-- Node.js 18+ instalado
-- MongoDB instalado localmente o cuenta en MongoDB Atlas
-- npm o yarn
+- Node.js 18+ installed
+- MongoDB installed locally or MongoDB Atlas account
+- npm or yarn
 
-## 🔧 Configuración
+## 🔧 Setup
 
-### 1. Instalar dependencias
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configurar variables de entorno
+### 2. Set up environment variables
 
-Crea un archivo `.env.local` en la raíz del proyecto:
+Create a `.env.local` file in the project root:
 
 ```env
 # MongoDB Connection
 MONGODB_URI=mongodb://localhost:27017/nextauth-ecommerce
-# O usa MongoDB Atlas:
+# Or use MongoDB Atlas:
 # MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database?retryWrites=true&w=majority
 
 # NextAuth Configuration
 NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=tu-clave-secreta-aqui-genera-con-openssl-rand-base64-32
+NEXTAUTH_SECRET=your-secret-key-here-generate-with-openssl-rand-base64-32
 
-# Email Configuration (Opcional)
+# Email Configuration (Optional)
 EMAIL_SERVER=smtp://username:password@smtp.example.com:587
 EMAIL_FROM=noreply@example.com
 ```
 
-### 3. Generar NEXTAUTH_SECRET
+### 3. Generate NEXTAUTH_SECRET
 
 ```bash
 openssl rand -base64 32
 ```
 
-### 4. Iniciar MongoDB
+### 4. Start MongoDB
 
-Si usas MongoDB local:
+If using local MongoDB:
 
 ```bash
 mongod
 ```
 
-Si usas MongoDB Atlas, asegúrate de tener tu cluster activo y la URI correcta.
+If using MongoDB Atlas, make sure your cluster is active and you have the correct URI.
 
-## 🏃 Ejecutar la aplicación
+## 🏃 Running the Application
 
-### Modo desarrollo
+### Development mode
 
 ```bash
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Modo producción
+### Production mode
 
 ```bash
 npm run build
 npm start
 ```
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 src/
 ├── app/
 │   ├── api/
-│   │   └── auth/          # Rutas de autenticación
-│   ├── store/             # Páginas del e-commerce
-│   │   ├── checkout/      # Página de checkout
-│   │   └── collection/    # Página de colección
-│   ├── login/             # Página de login
-│   ├── register/          # Página de registro
-│   └── dashboard/         # Dashboard de usuario
+│   │   └── auth/          # Authentication routes
+│   ├── store/             # E-commerce pages
+│   │   ├── checkout/      # Checkout page
+│   │   └── collection/    # Collection page
+│   ├── login/             # Login page
+│   ├── register/          # Register page
+│   └── dashboard/         # User dashboard
 ├── components/
-│   ├── cart/              # Componentes del carrito
-│   ├── luxury/            # Componentes de productos
-│   ├── store/             # Header y navegación
-│   └── ui/                # Componentes UI reutilizables
-├── hooks/                 # Custom hooks (carrito, scroll)
-├── libs/                  # Utilidades y configuración
-│   ├── mongodb.ts         # Conexión a MongoDB
-│   ├── mock-data.ts       # Datos de ejemplo
-│   └── utils.ts           # Funciones auxiliares
-├── models/                # Modelos de Mongoose
-│   └── user.ts            # Modelo de usuario
-└── types/                 # Tipos de TypeScript
-    └── products.ts        # Tipos de productos
+│   ├── cart/              # Cart components
+│   ├── luxury/            # Product components
+│   ├── store/             # Header and navigation
+│   └── ui/                # Reusable UI components
+├── hooks/                 # Custom hooks (cart, scroll)
+├── libs/                  # Utilities and configuration
+│   ├── mongodb.ts         # MongoDB connection
+│   ├── mock-data.ts       # Sample data
+│   └── utils.ts           # Helper functions
+├── models/                # Mongoose models
+│   └── user.ts            # User model
+└── types/                 # TypeScript types
+    └── products.ts        # Product types
 ```
 
-## 🔐 Autenticación
+## 🔐 Authentication
 
-La aplicación usa **NextAuth** con **Credentials Provider** y **MongoDB**:
+The application uses **NextAuth** with **Credentials Provider** and **MongoDB**:
 
-- **Registro**: `/register` - Crea una cuenta nueva
-- **Login**: `/login` - Inicia sesión
-- **Perfil**: `/dashboard/profile` - Página protegida (requiere autenticación)
+- **Register**: `/register` - Create a new account
+- **Login**: `/login` - Sign in
+- **Profile**: `/dashboard/profile` - Protected page (requires authentication)
 
-Los usuarios se almacenan en MongoDB con:
-- Email (único)
-- Password (hasheado con bcrypt)
+Users are stored in MongoDB with:
+- Email (unique)
+- Password (hashed with bcrypt)
 - Fullname
 - Timestamps (createdAt, updatedAt)
 
 ## 🛒 E-commerce
 
-### Características del carrito:
-- Agregar/eliminar productos
-- Actualizar cantidades
-- Persistencia con localStorage (Zustand)
-- Drawer lateral animado
-- Cálculo automático de totales
+### Cart features:
+- Add/remove products
+- Update quantities
+- localStorage persistence (Zustand)
+- Animated side drawer
+- Automatic total calculation
 
-### Productos:
-- Tarjetas de producto con imágenes
-- Quick add desde la tarjeta
-- Ratings y reviews
-- Precios con descuentos
-- Badges (NEW, descuento %)
+### Products:
+- Product cards with images
+- Quick add from card
+- Ratings and reviews
+- Discounted prices
+- Badges (NEW, discount %)
 
-## 🎨 Diseño
+## 🎨 Design
 
-### Tema de colores:
-- **Obsidian**: `rgb(15, 15, 20)` - Fondo oscuro
-- **Platinum**: `rgb(245, 245, 250)` - Texto claro
-- **Champagne**: `rgb(212, 175, 55)` - Acento dorado
-- **Gold**: `rgb(255, 215, 0)` - Gradientes
+### Color theme:
+- **Obsidian**: `rgb(15, 15, 20)` - Dark background
+- **Platinum**: `rgb(245, 245, 250)` - Light text
+- **Champagne**: `rgb(212, 175, 55)` - Gold accent
+- **Gold**: `rgb(255, 215, 0)` - Gradients
 
-### Fuentes:
-- **Playfair Display** - Serif para títulos
-- **Inter** - Sans-serif para texto
+### Fonts:
+- **Playfair Display** - Serif for titles
+- **Inter** - Sans-serif for body text
 
-## 🛠️ Tecnologías
+## 🛠️ Technologies
 
-- **Next.js 13** - Framework React con App Router
-- **TypeScript** - Tipado estático
-- **NextAuth** - Autenticación
-- **MongoDB + Mongoose** - Base de datos
-- **Tailwind CSS** - Estilos
-- **Zustand** - Estado global (carrito)
-- **Framer Motion** - Animaciones
-- **Lucide React** - Iconos
-- **Bcrypt** - Hash de passwords
+- **Next.js 13** - React framework with App Router
+- **TypeScript** - Static typing
+- **NextAuth** - Authentication
+- **MongoDB + Mongoose** - Database
+- **Tailwind CSS** - Styling
+- **Zustand** - Global state (cart)
+- **Framer Motion** - Animations
+- **Lucide React** - Icons
+- **Bcrypt** - Password hashing
 
-## 📝 Notas
+## 📝 Notes
 
-- Los productos actuales son datos de ejemplo (`mock-data.ts`)
-- Para producción, conecta a una base de datos real de productos
-- Configura un proveedor de email para funcionalidades de recuperación de contraseña
-- Las imágenes usan Unsplash como placeholder
+- Current products are sample data (`mock-data.ts`)
+- For production, connect to a real product database
+- Configure an email provider for password recovery features
+- Images use Unsplash as placeholder
 
 ## 🚀 Deploy
 
-### Vercel (Recomendado)
+### Vercel (Recommended)
 
-1. Sube el proyecto a GitHub
-2. Conecta con Vercel
-3. Configura las variables de entorno
-4. Deploy automático
+1. Upload project to GitHub
+2. Connect with Vercel
+3. Configure environment variables
+4. Automatic deploy
 
-### Otras plataformas
+### Other platforms
 
-Asegúrate de configurar:
-- Variables de entorno
+Make sure to configure:
+- Environment variables
 - Node.js 18+
 - Build command: `npm run build`
 - Start command: `npm start`

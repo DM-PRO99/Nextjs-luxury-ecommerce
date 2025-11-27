@@ -104,7 +104,7 @@ export async function POST(request: Request) {
     const product = await Product.create({
       name: payload.name,
       brand: payload.brand,
-      collection: payload.collection,
+      collectionName: payload.collection,
       description: payload.description,
       shortDescription: payload.shortDescription,
       price: payload.price,
@@ -115,7 +115,7 @@ export async function POST(request: Request) {
       specifications: payload.specifications,
       inStock: payload.inStock,
       stock: payload.stock,
-      isNew: payload.isNew,
+      isNewProduct: payload.isNew,
       isFeatured: payload.isFeatured,
       tags: payload.tags,
       images: {

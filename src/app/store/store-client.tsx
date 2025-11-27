@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,13 +53,26 @@ export function StoreClient({
   const router = useRouter();
   const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [isPending, startTransition] = useTransition();
+  const [searchInput, setSearchInput] = useState(initialFilters.search ?? "");
   const { t } = useTranslation();
 
   useEffect(() => {
     setFilters(initialFilters);
+    setSearchInput(initialFilters.search ?? "");
   }, [initialFilters]);
 
-  const applyFilters = (partial: Partial<FilterState>) => {
+  // Debounced search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchInput !== filters.search) {
+        applyFilters({ search: searchInput });
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const applyFilters = useCallback((partial: Partial<FilterState>) => {
     const nextFilters: FilterState = {
       ...filters,
       ...partial,
@@ -79,29 +92,79 @@ export function StoreClient({
 
     setFilters(nextFilters);
 
-    const query = new URLSearchParams();
-    Object.entries(nextFilters).forEach(([key, value]) => {
-      if (value === undefined || value === "" || value === null) return;
-      if (key === "page" && value === 1) return;
-      query.set(key, String(value));
-    });
-
-    startTransition(() => {
-      router.push(`/store?${query.toString()}`, { scroll: false });
-    });
-  };
+    // NO actualizamos la URL - solo actualizamos el estado interno
+    // Los filtros se aplicarán internamente sin cambiar la URL
+  }, [filters]);
 
   const featuredProducts = useMemo(() => {
     if (initialProducts.length === 0) return [];
     return initialProducts.filter((product) => product.isFeatured).slice(0, 3);
   }, [initialProducts]);
 
-  const handlePagination = (direction: "prev" | "next") => {
-    if (direction === "prev" && pagination.page > 1) {
-      applyFilters({ page: pagination.page - 1 });
+  // Filtrar productos localmente basados en los filtros actuales
+  const filteredProducts = useMemo(() => {
+    let filtered = [...initialProducts];
+
+    // Filtrar por categoría
+    if (filters.category !== "all") {
+      filtered = filtered.filter(product => product.category === filters.category);
     }
-    if (direction === "next" && pagination.page < pagination.totalPages) {
-      applyFilters({ page: pagination.page + 1 });
+
+    // Filtrar por búsqueda
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(searchLower) ||
+        product.brand.toLowerCase().includes(searchLower) ||
+        product.description.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Filtrar por precio
+    if (filters.minPrice) {
+      filtered = filtered.filter(product => product.price >= Number(filters.minPrice));
+    }
+    if (filters.maxPrice) {
+      filtered = filtered.filter(product => product.price <= Number(filters.maxPrice));
+    }
+
+    // Ordenar
+    switch (filters.sort) {
+      case "priceAsc":
+        filtered.sort((a, b) => a.price - b.price);
+        break;
+      case "priceDesc":
+        filtered.sort((a, b) => b.price - a.price);
+        break;
+      case "createdAt":
+      default:
+        // Mantener orden original (asumimos que es por fecha de creación)
+        break;
+    }
+
+    return filtered;
+  }, [initialProducts, filters]);
+
+  // Calcular paginación localmente
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (filters.page - 1) * pagination.limit;
+    const endIndex = startIndex + pagination.limit;
+    return filteredProducts.slice(startIndex, endIndex);
+  }, [filteredProducts, filters.page, pagination.limit]);
+
+  const localPagination = useMemo(() => ({
+    page: filters.page,
+    limit: pagination.limit,
+    total: filteredProducts.length,
+    totalPages: Math.ceil(filteredProducts.length / pagination.limit) || 1,
+  }), [filteredProducts.length, filters.page, pagination.limit]);
+
+  const handlePagination = (direction: "prev" | "next") => {
+    if (direction === "prev" && filters.page > 1) {
+      applyFilters({ page: filters.page - 1 });
+    }
+    if (direction === "next" && filters.page < localPagination.totalPages) {
+      applyFilters({ page: filters.page + 1 });
     }
   };
 
@@ -116,6 +179,7 @@ export function StoreClient({
             fill
             className="object-cover opacity-40"
             priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-obsidian/60 via-obsidian/30 to-obsidian" />
         </div>
@@ -156,8 +220,8 @@ export function StoreClient({
                 <input
                   type="text"
                   placeholder={t("filters.searchPlaceholder")}
-                  value={filters.search ?? ""}
-                  onChange={(event) => applyFilters({ search: event.target.value })}
+                  value={searchInput}
+                  onChange={(event) => setSearchInput(event.target.value)}
                   className="w-full bg-platinum/10 border border-platinum/10 rounded-2xl py-3 pl-12 pr-4 text-platinum focus:border-champagne transition-colors"
                 />
               </div>
@@ -206,9 +270,9 @@ export function StoreClient({
             <div className="flex items-center gap-4 text-sm text-platinum/60">
               <span>
                 {t("filters.results", {
-                  page: pagination.page,
-                  pages: pagination.totalPages,
-                  total: pagination.total,
+                  page: localPagination.page,
+                  pages: localPagination.totalPages,
+                  total: localPagination.total,
                 })}
               </span>
               {isPending && (
@@ -220,7 +284,7 @@ export function StoreClient({
             </div>
           </div>
 
-          {initialProducts.length === 0 ? (
+          {paginatedProducts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-2xl font-serif text-platinum mb-4">
                 {t("filters.emptyTitle")}
@@ -232,7 +296,7 @@ export function StoreClient({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {initialProducts.map((product) => (
+              {paginatedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
@@ -242,21 +306,21 @@ export function StoreClient({
             <Button
               variant="outline"
               onClick={() => handlePagination("prev")}
-              disabled={pagination.page === 1 || isPending}
+              disabled={localPagination.page === 1 || isPending}
             >
               {t("filters.prev")}
             </Button>
             <span className="text-platinum/60 text-sm">
               {t("filters.results", {
-                page: pagination.page,
-                pages: pagination.totalPages,
-                total: pagination.total,
+                page: localPagination.page,
+                pages: localPagination.totalPages,
+                total: localPagination.total,
               })}
             </span>
             <Button
               variant="outline"
               onClick={() => handlePagination("next")}
-              disabled={pagination.page === pagination.totalPages || isPending}
+              disabled={localPagination.page === localPagination.totalPages || isPending}
             >
               {t("filters.next")}
             </Button>
@@ -284,6 +348,7 @@ export function StoreClient({
                   alt={collection.name}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-8">

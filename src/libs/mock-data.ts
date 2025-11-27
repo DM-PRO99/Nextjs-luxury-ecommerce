@@ -25,19 +25,38 @@ export const mockProducts: Product[] = [
       strap: "Hand-stitched Alligator Leather"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80",
+      main: {
+        url: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80",
+        publicId: "mock_main_1",
+        alt: "Perpetual Chronograph main view"
+      },
       gallery: [
-        "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80",
-        "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
-        "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
+        {
+          url: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80",
+          publicId: "mock_gallery_1_1",
+          alt: "Perpetual Chronograph gallery 1"
+        },
+        {
+          url: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
+          publicId: "mock_gallery_1_2",
+          alt: "Perpetual Chronograph gallery 2"
+        },
+        {
+          url: "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
+          publicId: "mock_gallery_1_3",
+          alt: "Perpetual Chronograph gallery 3"
+        },
       ],
     },
     inStock: true,
+    stock: 10,
     isNew: true,
     isFeatured: true,
     rating: 4.9,
     reviewCount: 127,
-    category: "dress"
+    category: "dress",
+    currency: "USD",
+    tags: ["luxury", "chronograph", "dress", "automatic"]
   },
   {
     id: "2",
@@ -61,17 +80,32 @@ export const mockProducts: Product[] = [
       strap: "Stainless Steel Bracelet"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
+      main: {
+        url: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
+        publicId: "mock_main_2",
+        alt: "Diver Professional main view"
+      },
       gallery: [
-        "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
-        "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
+        {
+          url: "https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&q=80",
+          publicId: "mock_gallery_2_1",
+          alt: "Diver Professional gallery 1"
+        },
+        {
+          url: "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
+          publicId: "mock_gallery_2_2",
+          alt: "Diver Professional gallery 2"
+        },
       ],
     },
     inStock: true,
+    stock: 15,
     isFeatured: true,
     rating: 4.8,
     reviewCount: 89,
-    category: "diving"
+    category: "diving",
+    currency: "USD",
+    tags: ["dive", "professional", "automatic", "swiss"]
   },
   {
     id: "3",
@@ -90,14 +124,27 @@ export const mockProducts: Product[] = [
       strap: "Leather NATO"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&q=80",
-      gallery: ["https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&q=80"],
+      main: {
+        url: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&q=80",
+        publicId: "mock_main_3",
+        alt: "Aviator GMT main view"
+      },
+      gallery: [
+        {
+          url: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&q=80",
+          publicId: "mock_gallery_3_1",
+          alt: "Aviator GMT gallery 1"
+        },
+      ],
     },
     inStock: true,
+    stock: 8,
     isNew: true,
     rating: 4.7,
     reviewCount: 64,
-    category: "aviation"
+    category: "aviation",
+    currency: "USD",
+    tags: ["pilot", "gmt", "automatic", "titanium"]
   },
   {
     id: "4",
@@ -123,16 +170,27 @@ export const mockProducts: Product[] = [
       strap: "Genuine Crocodile Leather"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=800&q=80",
+      main: {
+        url: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=800&q=80",
+        publicId: "mock_main_4",
+        alt: "Moonphase Elegance main view"
+      },
       gallery: [
-        "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=800&q=80",
+        {
+          url: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=800&q=80",
+          publicId: "mock_gallery_4_1",
+          alt: "Moonphase Elegance gallery 1"
+        },
       ],
     },
     inStock: true,
+    stock: 5,
     isFeatured: true,
     rating: 4.9,
     reviewCount: 156,
-    category: "complications"
+    category: "complications",
+    currency: "USD",
+    tags: ["moonphase", "dress", "complication", "luxury"]
   },
   {
     id: "5",
@@ -157,14 +215,27 @@ export const mockProducts: Product[] = [
       strap: "Rubber with deployment clasp"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&q=80",
-      gallery: ["https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&q=80"],
+      main: {
+        url: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&q=80",
+        publicId: "mock_main_5",
+        alt: "Sport Chronometer main view"
+      },
+      gallery: [
+        {
+          url: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&q=80",
+          publicId: "mock_gallery_5_1",
+          alt: "Sport Chronometer gallery 1"
+        },
+      ],
     },
     inStock: true,
+    stock: 12,
     isNew: true,
     rating: 4.6,
     reviewCount: 92,
-    category: "sport"
+    category: "sport",
+    currency: "USD",
+    tags: ["chronograph", "racing", "sport", "carbon"]
   },
   {
     id: "6",
@@ -189,13 +260,26 @@ export const mockProducts: Product[] = [
       strap: "Titanium Bracelet"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
-      gallery: ["https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80"],
+      main: {
+        url: "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
+        publicId: "mock_main_6",
+        alt: "Deep Sea Explorer main view"
+      },
+      gallery: [
+        {
+          url: "https://images.unsplash.com/photo-1611858518888-f7a0c2c5c4b0?w=800&q=80",
+          publicId: "mock_gallery_6_1",
+          alt: "Deep Sea Explorer gallery 1"
+        },
+      ],
     },
     inStock: true,
+    stock: 7,
     rating: 4.8,
     reviewCount: 143,
-    category: "diving"
+    category: "diving",
+    currency: "USD",
+    tags: ["dive", "titanium", "professional", "deep-sea"]
   },
   {
     id: "7",
@@ -220,13 +304,26 @@ export const mockProducts: Product[] = [
       strap: "Italian Calfskin Leather"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=800&q=80",
-      gallery: ["https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=800&q=80"],
+      main: {
+        url: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=800&q=80",
+        publicId: "mock_main_7",
+        alt: "Classic Dress Watch main view"
+      },
+      gallery: [
+        {
+          url: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=800&q=80",
+          publicId: "mock_gallery_7_1",
+          alt: "Classic Dress Watch gallery 1"
+        },
+      ],
     },
     inStock: true,
+    stock: 20,
     rating: 4.7,
     reviewCount: 78,
-    category: "dress"
+    category: "dress",
+    currency: "USD",
+    tags: ["dress", "manual", "classic", "elegant"]
   },
   {
     id: "8",
@@ -252,13 +349,26 @@ export const mockProducts: Product[] = [
       strap: "Leather with NATO option"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1548171915-e79a380a2a4b?w=800&q=80",
-      gallery: ["https://images.unsplash.com/photo-1548171915-e79a380a2a4b?w=800&q=80"],
+      main: {
+        url: "https://images.unsplash.com/photo-1548171915-e79a380a2a4b?w=800&q=80",
+        publicId: "mock_main_8",
+        alt: "Pilot's Chronograph main view"
+      },
+      gallery: [
+        {
+          url: "https://images.unsplash.com/photo-1548171915-e79a380a2a4b?w=800&q=80",
+          publicId: "mock_gallery_8_1",
+          alt: "Pilot's Chronograph gallery 1"
+        },
+      ],
     },
     inStock: true,
+    stock: 9,
     rating: 4.9,
     reviewCount: 201,
-    category: "aviation"
+    category: "aviation",
+    currency: "USD",
+    tags: ["pilot", "chronograph", "military", "flyback"]
   },
   {
     id: "9",
@@ -283,15 +393,28 @@ export const mockProducts: Product[] = [
       strap: "Alligator Leather"
     },
     images: {
-      main: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=800&q=80",
-      gallery: ["https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=800&q=80"],
+      main: {
+        url: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=800&q=80",
+        publicId: "mock_main_9",
+        alt: "Skeleton Masterpiece main view"
+      },
+      gallery: [
+        {
+          url: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=800&q=80",
+          publicId: "mock_gallery_9_1",
+          alt: "Skeleton Masterpiece gallery 1"
+        },
+      ],
     },
     inStock: true,
+    stock: 3,
     isNew: true,
     isFeatured: true,
     rating: 5.0,
     reviewCount: 45,
-    category: "complications"
+    category: "complications",
+    currency: "USD",
+    tags: ["skeleton", "tourbillon", "limited", "hand-engraved"]
   },
 ];
 

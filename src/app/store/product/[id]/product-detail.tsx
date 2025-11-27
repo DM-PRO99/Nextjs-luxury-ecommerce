@@ -39,6 +39,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 alt={product.name}
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <div className="grid grid-cols-4 gap-4">
@@ -50,7 +51,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                     selectedImage === idx ? "ring-2 ring-champagne" : ""
                   }`}
                 >
-                  <Image src={img.url} alt={img.alt || product.name} fill className="object-cover" />
+                  <Image src={img.url} alt={img.alt || product.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                 </button>
               ))}
             </div>

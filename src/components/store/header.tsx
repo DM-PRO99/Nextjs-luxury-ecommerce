@@ -54,7 +54,7 @@ export function Header() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <button className="p-2 text-platinum hover:text-champagne transition-colors">
               <Search className="w-5 h-5" />
             </button>

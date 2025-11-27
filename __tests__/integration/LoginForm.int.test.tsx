@@ -1,24 +1,39 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import Signin from '@/app/login/page'
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
+import Signin from '@/app/login/page';
+
+// Tipos para los mocks
+interface MockSignInResponse {
+  ok: boolean;
+  error: string | null;
+  status: number;
+  url: string | null;
+}
+
+// Configuración de los mocks
+const mockPush = jest.fn();
 
 jest.mock('next-auth/react', () => ({
   signIn: jest.fn(),
-}))
+}));
 
-const mockPush = jest.fn()
 jest.mock('next/navigation', () => ({
+  __esModule: true,
   useRouter: () => ({
     push: mockPush,
     replace: jest.fn(),
     prefetch: jest.fn(),
     back: jest.fn(),
   }),
-}))
+  useSearchParams: () => ({
+    get: jest.fn(),
+  }),
+}));
 
-const mockSignIn = signIn as jest.MockedFunction<typeof signIn>
+// Importar después del mock
+import { signIn } from 'next-auth/react';
+const mockSignIn = signIn as jest.Mock;
 
 describe('LoginForm - Prueba de Integración Completa', () => {
   
@@ -27,12 +42,13 @@ describe('LoginForm - Prueba de Integración Completa', () => {
   })
 
   it('permite al usuario hacer login exitoso y redirige a /store', async () => {
-    mockSignIn.mockResolvedValue({
+    const mockResponse: MockSignInResponse = {
       ok: true,
       error: null,
       status: 200,
-      url: null,
-    })
+      url: '/store',
+    };
+    mockSignIn.mockResolvedValue(mockResponse)
 
     const user = userEvent.setup()
     render(<Signin />)
@@ -59,12 +75,13 @@ describe('LoginForm - Prueba de Integración Completa', () => {
   })
 
   it('muestra mensaje de error cuando las credenciales son incorrectas', async () => {
-    mockSignIn.mockResolvedValue({
+    const mockResponse: MockSignInResponse = {
       ok: false,
       error: 'Invalid credentials',
       status: 401,
       url: null,
-    })
+    };
+    mockSignIn.mockResolvedValue(mockResponse)
 
     const user = userEvent.setup()
     render(<Signin />)
@@ -85,7 +102,7 @@ describe('LoginForm - Prueba de Integración Completa', () => {
           ok: true, 
           error: null, 
           status: 200, 
-          url: null 
+          url: '/store'
         }), 100)
       )
     )
