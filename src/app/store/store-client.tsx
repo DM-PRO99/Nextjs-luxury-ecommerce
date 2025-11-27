@@ -61,17 +61,6 @@ export function StoreClient({
     setSearchInput(initialFilters.search ?? "");
   }, [initialFilters]);
 
-  // Debounced search
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchInput !== filters.search) {
-        applyFilters({ search: searchInput });
-      }
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchInput, filters.search, applyFilters]);
-
   const applyFilters = useCallback((partial: Partial<FilterState>) => {
     const nextFilters: FilterState = {
       ...filters,
@@ -95,6 +84,17 @@ export function StoreClient({
     // NO actualizamos la URL - solo actualizamos el estado interno
     // Los filtros se aplicarán internamente sin cambiar la URL
   }, [filters]);
+
+  // Debounced search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchInput !== filters.search) {
+        applyFilters({ search: searchInput });
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchInput, filters.search, applyFilters]);
 
   const featuredProducts = useMemo(() => {
     if (initialProducts.length === 0) return [];
